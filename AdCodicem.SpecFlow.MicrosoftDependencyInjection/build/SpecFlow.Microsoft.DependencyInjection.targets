@@ -1,0 +1,9 @@
+﻿<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+
+    <!--<_DependencyInjectionPluginFramework Condition=" '$(TargetFrameworkIdentifier)' == '.NETCoreApp' ">netstandard2.0</_DependencyInjectionPluginFramework>
+    <_DependencyInjectionPluginFramework Condition=" '$(TargetFrameworkIdentifier)' == '.NETFramework' ">net45</_DependencyInjectionPluginFramework>-->
+    <_DependencyInjectionPluginFramework>netstandard2.0</_DependencyInjectionPluginFramework>
+    <_DependencyInjectionPluginFrameworkPath>$(MSBuildThisFileDirectory)\..\lib\$(_DependencyInjectionPluginFramework)\SpecFlow.Microsoft.DependencyInjection.SpecFlowPlugin.dll</_DependencyInjectionPluginFrameworkPath>
+  </PropertyGroup>
+</Project>

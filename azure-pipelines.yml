@@ -11,41 +11,62 @@ variables:
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
-steps:
-- task: UseDotNet@2
-  displayName: dotnet 3.1 install
-  inputs:
-    version: '3.1.x'
-    packageType: runtime
+stages:
+- stage: build
+  jobs:
+    - job:
+      steps:
+      - task: UseDotNet@2
+        displayName: dotnet 3.1 install
+        inputs:
+          version: '3.1.x'
+          packageType: runtime
 
-- task: DotNetCoreCLI@2
-  displayName: dotnet restore
-  inputs:
-    command: 'restore'
-    projects: '$(solution)'
-    feedsToUse: 'select'
+      - task: DotNetCoreCLI@2
+        displayName: dotnet restore
+        inputs:
+          command: 'restore'
+          projects: '$(solution)'
+          feedsToUse: 'select'
+        
+      - task: DotNetCoreCLI@2
+        displayName: dotnet build
+        inputs:
+          command: 'build'
+          projects: '$(solution)'
+          arguments: '--no-restore --configuration $(buildConfiguration)'
+
+      - task: DotNetCoreCLI@2
+        displayName: dotnet pack
+        inputs:
+          command: 'pack'
+          packagesToPack: '$(project)'
+          arguments: '--output "$(Build.ArtifactStagingDirectory)"'
+          nobuild: true
+          includesymbols: true
+          versioningScheme: 'off'
+
+
+      - task: PublishBuildArtifacts@1
+        displayName: Publish artifacts
+        inputs:
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+          ArtifactName: 'drop'
+          publishLocation: 'Container'
   
-- task: DotNetCoreCLI@2
-  displayName: dotnet build
-  inputs:
-    command: 'build'
-    projects: '$(solution)'
-    arguments: '--no-restore --configuration $(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  displayName: dotnet pack
-  inputs:
-    command: 'pack'
-    packagesToPack: '$(project)'
-    arguments: '--output "$(Build.ArtifactStagingDirectory)"'
-    nobuild: true
-    includesymbols: true
-    versioningScheme: 'off'
-
-
-- task: PublishBuildArtifacts@1
-  displayName: Publish artifacts
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
+- stage: release
+  jobs:
+    - job:
+      steps:
+      - task: DownloadBuildArtifacts@0
+        inputs:
+          buildType: 'current'
+          downloadType: 'single'
+          artifactName: 'drop'
+          downloadPath: '$(System.ArtifactsDirectory)'
+      - task: NuGetCommand@2
+        inputs:
+          command: 'push'
+          packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.(nupkg|snupkg)'
+          nuGetFeedType: 'external'
+          publishFeedCredentials: 'Nuget.org'

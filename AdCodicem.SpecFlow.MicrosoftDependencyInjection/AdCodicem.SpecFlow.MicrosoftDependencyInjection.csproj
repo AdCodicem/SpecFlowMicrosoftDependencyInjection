@@ -5,7 +5,6 @@
     <AssemblyName>AdCodicem.SpecFlow.MicrosoftDependencyInjection.SpecFlowPlugin</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>AdCodicem.SpecFlow.MicrosoftDependencyInjection</PackageId>
-    <Version>1.0.1</Version>
     <Authors>Clément MARTY</Authors>
     <Description>SpecFlow plugin that enables to use Microsoft.Extensions.DependencyInjection for resolving test dependencies.</Description>
     <PackageTags>specflow di dependency injection</PackageTags>
@@ -21,6 +20,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="GitVersionTask" Version="5.3.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.0" />
     <PackageReference Include="SpecFlow" Version="3.0.188" />
   </ItemGroup>

@@ -67,6 +67,6 @@ stages:
       - task: NuGetCommand@2
         inputs:
           command: 'push'
-          packagesToPush: '$(System.ArtifactsDirectory)/**/*.(nupkg|snupkg)'
+          packagesToPush: '$(System.ArtifactsDirectory)/**/*.*nupkg'
           nuGetFeedType: 'external'
           publishFeedCredentials: 'Nuget.org'

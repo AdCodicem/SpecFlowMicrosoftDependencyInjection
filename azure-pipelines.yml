@@ -64,14 +64,16 @@ stages:
     - job:
       steps:
       - task: DownloadBuildArtifacts@0
+        displayName: Download artifacts
         inputs:
           buildType: 'current'
           downloadType: 'single'
           artifactName: 'drop'
           downloadPath: '$(System.ArtifactsDirectory)'
       - task: NuGetCommand@2
+        displayName: Push nuget
         inputs:
           command: 'push'
-          packagesToPush: '$(System.ArtifactsDirectory)/**/*.*nupkg'
+          packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg'
           nuGetFeedType: 'external'
           publishFeedCredentials: 'Nuget.org'

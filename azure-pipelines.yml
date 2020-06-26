@@ -1,11 +1,13 @@
-
 trigger:
-- master
+  batch: true
+  branches:
+    include:
+    - master
 
 pool:
   vmImage: 'windows-latest'
 
-variables:
+variables: 
   solution: '**/*.sln'
   project: '**/AdCodicem.SpecFlow.MicrosoftDependencyInjection.csproj'
   buildPlatform: 'Any CPU'
@@ -38,6 +40,7 @@ stages:
 
       - task: DotNetCoreCLI@2
         displayName: dotnet pack
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
         inputs:
           command: 'pack'
           packagesToPack: '$(project)'
@@ -49,12 +52,14 @@ stages:
 
       - task: PublishBuildArtifacts@1
         displayName: Publish artifacts
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: 'drop'
           publishLocation: 'Container'
   
 - stage: release
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
   jobs:
     - job:
       steps:

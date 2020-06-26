@@ -60,6 +60,7 @@ stages:
   
 - stage: release
   condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  dependsOn: build
   jobs:
     - job:
       steps:

@@ -59,12 +59,14 @@ stages:
     - job:
       steps:
       - task: DownloadBuildArtifacts@0
+        displayName: Download artifacts
         inputs:
           buildType: 'current'
           downloadType: 'single'
           artifactName: 'drop'
           downloadPath: '$(System.ArtifactsDirectory)'
       - task: NuGetCommand@2
+        displayName: Push Nuget
         inputs:
           command: 'push'
           packagesToPush: '$(System.ArtifactsDirectory)/**/*.*nupkg'

@@ -4,11 +4,11 @@ It's based on Gáspár Nagy's [SpecFlow.Autofac](https://github.com/gasparnagy/S
 
 Currently supports : 
 - SpecFlow 3.0 or above
-- Microsoft.Extensions.DependencyInjection 2.0 or above
+- Microsoft.Extensions.DependencyInjection 2.1 or above
 
 License: [Apache](https://raw.githubusercontent.com/AdCodicem/SpecFlowMicrosoftDependencyInjection/master/LICENSE)
 
-NuGet: [AdCodicem.SpecFlow.Microsoft.DependencyInjection](https://www.nuget.org/packages/AdCodicem.SpecFlow.MicrosoftDependencyInjection)
+NuGet: [![Nuget](https://img.shields.io/nuget/v/AdCodicem.SpecFlow.MicrosoftDependencyInjection)](https://www.nuget.org/packages/AdCodicem.SpecFlow.MicrosoftDependencyInjection)
 
 Build Status [![Build Status](https://dev.azure.com/AdCodicem/SpecFlow.MicrosoftDependencyInjection/_apis/build/status/AdCodicem.SpecFlowMicrosoftDependencyInjection?branchName=master&stageName=build)](https://dev.azure.com/AdCodicem/SpecFlow.MicrosoftDependencyInjection/_build/latest?definitionId=2&branchName=master)
 
@@ -21,7 +21,7 @@ If you've already familiar why ASP.Net Core dependency injection, you won't be l
 # Usage
 Install plugin from NuGet into your SpecFlow project.
 ```powershell
-PM> Install-Package AdCodicem.SpecFlow.Microsoft.DependencyInjection
+PM> Install-Package AdCodicem.SpecFlow.MicrosoftDependencyInjection
 ```
 
 Create a __non-static__ class somewhere in the SpecFlow project implementing the `IServicesConfigurator` interface.
@@ -44,6 +44,6 @@ public class Startup : IServicesConfigurator
 ```
 
 # Release History
-## v1.0.0
+## v1.0.1
 - Initial release.
 - Increased minimal `Microsoft.Extensions.DependencyInjection` version to 2.1.0 to prevent `MissingMethodException` issue when using an higher version of the NuGet.

@@ -1,11 +1,10 @@
-
 trigger:
 - master
 
 pool:
   vmImage: 'windows-latest'
 
-variables:
+variables: 
   solution: '**/*.sln'
   project: '**/AdCodicem.SpecFlow.MicrosoftDependencyInjection.csproj'
   testProject: '**/Sample.Specs.csproj'
@@ -46,6 +45,7 @@ stages:
 
       - task: DotNetCoreCLI@2
         displayName: dotnet pack
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
         inputs:
           command: 'pack'
           packagesToPack: '$(project)'
@@ -57,12 +57,15 @@ stages:
 
       - task: PublishBuildArtifacts@1
         displayName: Publish artifacts
+        condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: 'drop'
           publishLocation: 'Container'
   
 - stage: release
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
+  dependsOn: build
   jobs:
     - job:
       steps:
@@ -74,9 +77,9 @@ stages:
           artifactName: 'drop'
           downloadPath: '$(System.ArtifactsDirectory)'
       - task: NuGetCommand@2
-        displayName: Push Nuget
+        displayName: Push nuget
         inputs:
           command: 'push'
-          packagesToPush: '$(System.ArtifactsDirectory)/**/*.*nupkg'
+          packagesToPush: '$(System.ArtifactsDirectory)/**/*.nupkg'
           nuGetFeedType: 'external'
           publishFeedCredentials: 'Nuget.org'

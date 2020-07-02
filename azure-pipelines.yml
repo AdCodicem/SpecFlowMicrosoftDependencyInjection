@@ -8,6 +8,7 @@ pool:
 variables:
   solution: '**/*.sln'
   project: '**/AdCodicem.SpecFlow.MicrosoftDependencyInjection.csproj'
+  testProject: '**/Sample.Specs.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -35,6 +36,13 @@ stages:
           command: 'build'
           projects: '$(solution)'
           arguments: '--no-restore --configuration $(buildConfiguration)'
+        
+      - task: DotNetCoreCLI@2
+        displayName: dotnet test
+        inputs:
+          command: 'test'
+          projects: '$(testProject)'
+          arguments: '--no-restore --no-build --configuration $(buildConfiguration) --collect "Code Coverage"'
 
       - task: DotNetCoreCLI@2
         displayName: dotnet pack

@@ -7,17 +7,19 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <PackageId>AdCodicem.SpecFlow.MicrosoftDependencyInjection</PackageId>
-    <Authors>Clément MARTY</Authors>
+    <Authors>AdCodicem</Authors>
+    <Owners>AdCodicem</Owners>
     <Description>SpecFlow plugin that enables to use Microsoft.Extensions.DependencyInjection for resolving test dependencies.</Description>
     <PackageTags>specflow di dependency injection</PackageTags>
     <Product>SpecFlow Microsoft Dependency injection integration plugin</Product>
-    <PackageProjectUrl>https://github.com/AdCodicem/SpecFlow.MicrosoftDependencyInjection</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/AdCodicem/SpecFlow.MicrosoftDependencyInjection</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/AdCodicem/SpecFlowMicrosoftDependencyInjection</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/AdCodicem/SpecFlowMicrosoftDependencyInjection</RepositoryUrl>
+    <IconUrl>http://go.specflow.org/specflow-nuget-icon</IconUrl>
     <RepositoryType>git</RepositoryType>
     <Company>AdCodicem</Company>
     <Copyright>Copyright ©2020 AdCodicem</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageReleaseNotes>First release</PackageReleaseNotes>
+    <PackageReleaseNotes>Updated nuget informations.</PackageReleaseNotes>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 

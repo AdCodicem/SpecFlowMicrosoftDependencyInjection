@@ -35,7 +35,7 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
             // Get all IServicesConfigurator implementations
             var servicesConfiguratorTypes =
                 AppDomain.CurrentDomain.GetAssemblies()
-                         .SelectMany(assembly => assembly.GetTypes())
+                         .SelectMany(assembly => assembly.GetLoadableTypes())
                          .Where(type => typeof(IServicesConfigurator).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
                          .Where(type => type.GetConstructor(Type.EmptyTypes) != null)
                          .ToList();

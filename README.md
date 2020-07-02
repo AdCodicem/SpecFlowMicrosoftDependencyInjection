@@ -4,7 +4,7 @@ It's based on Gáspár Nagy's [SpecFlow.Autofac](https://github.com/gasparnagy/S
 
 Currently supports : 
 - SpecFlow 3.0 or above
-- Microsoft.Extensions.DependencyInjection 2.0 or above
+- Microsoft.Extensions.DependencyInjection 2.1 or above
 
 License: [Apache](https://raw.githubusercontent.com/AdCodicem/SpecFlowMicrosoftDependencyInjection/master/LICENSE)
 

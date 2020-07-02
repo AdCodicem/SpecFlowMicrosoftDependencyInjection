@@ -44,6 +44,6 @@ public class Startup : IServicesConfigurator
 ```
 
 # Release History
-## v1.0.0
+## v1.0.1
 - Initial release.
 - Increased minimal `Microsoft.Extensions.DependencyInjection` version to 2.1.0 to prevent `MissingMethodException` issue when using an higher version of the NuGet.

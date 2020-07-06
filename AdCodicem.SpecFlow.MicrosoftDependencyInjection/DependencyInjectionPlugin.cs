@@ -81,7 +81,7 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
                 var services = ConfigureServices();
                 services.AddScoped(__ => args.ObjectContainer);
                 var provider = services.BuildServiceProvider(true).CreateScope();
-                args.ObjectContainer.RegisterInstanceAs(provider);
+                args.ObjectContainer.RegisterInstanceAs(provider, typeof(IServiceScope), dispose: true);
             };
         }
     }

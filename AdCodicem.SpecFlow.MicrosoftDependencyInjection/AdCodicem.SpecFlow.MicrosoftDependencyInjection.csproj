@@ -19,7 +19,7 @@
     <Company>AdCodicem</Company>
     <Copyright>Copyright ©2020 AdCodicem</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageReleaseNotes>Updated nuget informations.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added service resolution delegation capability.</PackageReleaseNotes>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
 

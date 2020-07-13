@@ -1,4 +1,5 @@
 ﻿using AdCodicem.SpecFlow.MicrosoftDependencyInjection;
+using AdCodicem.SpecFlow.MicrosoftDependencyInjection.Internal;
 using BoDi;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -27,10 +28,10 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
             }
         }
 
-        private IServiceCollection ConfigureServices()
+        private IServiceCollection ConfigureServices(IObjectContainer delegateContainer)
         {
             Debug.WriteLine(nameof(ConfigureServices));
-            var services = new ServiceCollection();
+            var services = new DelegatableServiceCollection(delegateContainer);
 
             // Get all IServicesConfigurator implementations
             var servicesConfiguratorTypes =
@@ -48,9 +49,9 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
             }
 
             services
-                .AddScoped(provider => provider.GetService<IObjectContainer>().Resolve<ScenarioContext>())
-                .AddScoped(provider => provider.GetService<IObjectContainer>().Resolve<FeatureContext>())
-                .AddScoped(provider => provider.GetService<IObjectContainer>().Resolve<TestThreadContext>());
+                .AddDelegated<ScenarioContext>()
+                .AddDelegated<FeatureContext>()
+                .AddDelegated<TestThreadContext>();
 
             return services;
         }
@@ -78,8 +79,8 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
             };
             runtimePluginEvents.CustomizeScenarioDependencies += (_, args) =>
             {
-                var services = ConfigureServices();
-                services.AddScoped(__ => args.ObjectContainer);
+                var services = ConfigureServices(args.ObjectContainer);
+
                 var provider = services.BuildServiceProvider(true).CreateScope();
                 args.ObjectContainer.RegisterInstanceAs(provider, typeof(IServiceScope), dispose: true);
             };

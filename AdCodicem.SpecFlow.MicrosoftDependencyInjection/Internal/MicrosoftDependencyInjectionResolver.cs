@@ -1,12 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using BoDi;
+﻿using BoDi;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Diagnostics;
 using TechTalk.SpecFlow.Infrastructure;
 
-namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
+namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection.Internal
 {
-    public class MicrosoftDependencyInjectionResolver : ITestObjectResolver
+    internal class MicrosoftDependencyInjectionResolver : ITestObjectResolver
     {
         /// <inheritdoc />
         public object ResolveBindingInstance(Type bindingType, IObjectContainer scenarioContainer)
@@ -14,9 +14,8 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
             Debug.WriteLine($"ResolveBindingInstance {bindingType.FullName}");
             var scope = scenarioContainer.Resolve<IServiceScope>();
             var provider = scope.ServiceProvider;
-            var instance = provider.GetService(bindingType);
 
-            return instance;
+            return provider.GetService(bindingType);
         }
     }
 }

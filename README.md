@@ -1,5 +1,5 @@
-# AdCodicem.SpecFlow.Microsoft.DependencyInjection
-AdCodicem.SpecFlow.Microsoft.DependencyInjection is a [SpecFlow](https://specflow.org/getting-started/) plugin that enables to use [Microsoft.Extensions.DependencyInjection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection) for resolving test dependencies.
+# AdCodicem.SpecFlow.MicrosoftDependencyInjection
+AdCodicem.SpecFlow.MicrosoftDependencyInjection is a [SpecFlow](https://specflow.org/getting-started/) plugin that enables to use [Microsoft.Extensions.DependencyInjection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection) for resolving test dependencies.
 It's based on Gáspár Nagy's [SpecFlow.Autofac](https://github.com/gasparnagy/SpecFlow.Autofac) plugin.
 
 Currently supports : 
@@ -19,6 +19,7 @@ I created this plugin for Specflow because most of my projects use the plain Mic
 If you've already familiar why ASP.Net Core dependency injection, you won't be lost with this plugin :wink:.
 
 # Usage
+## Typical usage
 Install plugin from NuGet into your SpecFlow project.
 ```powershell
 PM> Install-Package AdCodicem.SpecFlow.MicrosoftDependencyInjection
@@ -38,12 +39,39 @@ public class Startup : IServicesConfigurator
     /// <inheritdoc />
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddTransient<ICalculator, Calculator>()
+        services.AddTransient<ICalculator, Calculator>();
     }
 }
 ```
 
+## Delegate the resolution to the original container
+Since v1.1.0 you can instruct the service collection to use the dependencies registered automatically by Specflow.
+```csharp
+public class Startup : IServicesConfigurator
+{
+    /// <inheritdoc />
+    public void ConfigureServices(IServiceCollection services)
+    {
+        services
+            // ITestOutputHelper is automatically registered by Specflow when using xUnit runner
+            .AddDelegated<ITestOutputHelper>()
+            // Calculator can use ITestOutputHelper as it's registered above to delegate the resolution to the original container
+            .AddTransient<ICalculator, Calculator>();
+    }
+}
+```
+
+To register a delegated service, simply add the following call in configuration pipeline: `AddDelegated<TService>()`. 
+The service resolution is delegated to the original container used by Specflow.
+
 # Release History
+## v1.1.0
+- Feature: Allow the delegation of the resolution of some services to the original Specflow dependency injection. 
+The delegated services must be registered like this: `services.AddDelegated<ITestOutputHelper>()`.
+
+## v1.0.2
+- Fix: Registered services are now disposed if they're disposable.
+
 ## v1.0.1
 - Initial release.
 - Increased minimal `Microsoft.Extensions.DependencyInjection` version to 2.1.0 to prevent `MissingMethodException` issue when using an higher version of the NuGet.

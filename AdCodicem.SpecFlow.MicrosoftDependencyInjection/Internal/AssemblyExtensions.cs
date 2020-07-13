@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
+namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection.Internal
 {
     internal static class AssemblyExtensions
     {

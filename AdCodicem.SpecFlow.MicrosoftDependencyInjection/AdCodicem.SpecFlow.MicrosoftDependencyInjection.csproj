@@ -19,8 +19,12 @@
     <Company>AdCodicem</Company>
     <Copyright>Copyright ©2020 AdCodicem</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <PackageReleaseNotes>Added service resolution delegation capability.</PackageReleaseNotes>
+    <PackageReleaseNotes>Added Intellisense documentation.</PackageReleaseNotes>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <DocumentationFile>bin/$(Configuration)/$(TargetFramework)/$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -65,6 +65,9 @@ To register a delegated service, simply add the following call in configuration 
 The service resolution is delegated to the original container used by Specflow.
 
 # Release History
+## v1.1.1
+- Fix: Added Intellisense documentation
+
 ## v1.1.0
 - Feature: Allow the delegation of the resolution of some services to the original Specflow dependency injection. 
 The delegated services must be registered like this: `services.AddDelegated<ITestOutputHelper>()`.

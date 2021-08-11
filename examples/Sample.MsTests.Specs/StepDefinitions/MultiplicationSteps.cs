@@ -1,8 +1,8 @@
-using System.Linq;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
-using Xunit;
 
-namespace Sample.Specs.StepDefinitions
+namespace Sample.MsTests.Specs.StepDefinitions
 {
     [Binding]
     [Scope(Feature = "Multiplication")]
@@ -21,25 +21,16 @@ namespace Sample.Specs.StepDefinitions
             _calculator.Enter(operand);
         }
 
-        [Given(@"I have entered the following numbers")]
-        public void GivenIHaveEnteredTheFollowingNumbers(Table table)
+        [When(@"I press multiply")]
+        public void WhenIPressMultiply()
         {
-            foreach (var number in table.Rows.Select(r => int.Parse(r["number"])))
-            {
-                _calculator.Enter(number);
-            }
+            _calculator.Multiply();
         }
 
         [Then(@"the result should be (.*) on the screen")]
         public void ThenTheResultShouldBeOnTheScreen(int expectedResult)
         {
-            Assert.Equal(expectedResult, _calculator.Result);
-        }
-
-        [When(@"I press multiply")]
-        public void WhenIPressMultiply()
-        {
-            _calculator.Multiply();
+            Assert.AreEqual(expectedResult, _calculator.Result);
         }
     }
 }

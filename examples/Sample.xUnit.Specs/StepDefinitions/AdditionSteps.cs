@@ -21,31 +21,16 @@ namespace Sample.Specs.StepDefinitions
             _calculator.Enter(operand);
         }
 
-        [Given(@"I have entered the following numbers")]
-        public void GivenIHaveEnteredTheFollowingNumbers(Table table)
-        {
-            foreach (var number in table.Rows.Select(r => int.Parse(r["number"])))
-            {
-                _calculator.Enter(number);
-            }
-        }
-
-        [Then(@"the result should be (.*) on the screen")]
-        public void ThenTheResultShouldBeOnTheScreen(int expectedResult)
-        {
-            Assert.Equal(expectedResult, _calculator.Result);
-        }
-
         [When(@"I press add")]
         public void WhenIPressAdd()
         {
             _calculator.Add();
         }
 
-        [When(@"I press multiply")]
-        public void WhenIPressMultiply()
+        [Then(@"the result should be (.*) on the screen")]
+        public void ThenTheResultShouldBeOnTheScreen(int expectedResult)
         {
-            _calculator.Multiply();
+            Assert.Equal(expectedResult, _calculator.Result);
         }
     }
 }

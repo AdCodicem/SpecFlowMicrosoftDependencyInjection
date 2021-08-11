@@ -3,7 +3,7 @@ AdCodicem.SpecFlow.MicrosoftDependencyInjection is a [SpecFlow](https://specflow
 It's based on Gáspár Nagy's [SpecFlow.Autofac](https://github.com/gasparnagy/SpecFlow.Autofac) plugin.
 
 Currently supports : 
-- SpecFlow 3.0 or above
+- SpecFlow 3.7 or above
 - Microsoft.Extensions.DependencyInjection 2.1 or above
 
 License: [Apache](https://raw.githubusercontent.com/AdCodicem/SpecFlowMicrosoftDependencyInjection/master/LICENSE)
@@ -65,6 +65,10 @@ To register a delegated service, simply add the following call in configuration 
 The service resolution is delegated to the original container used by Specflow.
 
 # Release History
+
+## v1.1.3
+- Fix: Support for Specflow v3.7+
+
 ## v1.1.1
 - Fix: Added Intellisense documentation
 

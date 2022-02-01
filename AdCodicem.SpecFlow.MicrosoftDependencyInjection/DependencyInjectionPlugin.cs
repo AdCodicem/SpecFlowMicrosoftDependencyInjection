@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using TechTalk.SpecFlow;
 using TechTalk.SpecFlow.Infrastructure;
 using TechTalk.SpecFlow.Plugins;
@@ -19,9 +18,14 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
     {
         private static readonly object RegistrationLock = new object();
 
-        private void ConfigureBindings(IServiceCollection services, Assembly assembly)
+        private void ConfigureBindings(IServiceCollection services)
         {
-            var bindingTypes = assembly.GetTypes().Where(t => Attribute.IsDefined(t, typeof(BindingAttribute)));
+            var bindingTypes =
+                AppDomain
+                    .CurrentDomain
+                    .GetAssemblies()
+                    .SelectMany(assembly => assembly.GetTypes())
+                    .Where(a => System.Attribute.IsDefined(a, typeof(BindingAttribute)));
             foreach (var bindingType in bindingTypes)
             {
                 services.AddScoped(bindingType);
@@ -33,6 +37,8 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
             Debug.WriteLine(nameof(ConfigureServices));
             var services = new DelegatableServiceCollection(delegateContainer);
 
+            ConfigureBindings(services);
+
             // Get all IServicesConfigurator implementations
             var servicesConfiguratorTypes =
                 AppDomain.CurrentDomain.GetAssemblies()
@@ -43,7 +49,6 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
 
             foreach (var type in servicesConfiguratorTypes)
             {
-                ConfigureBindings(services, type.Assembly);
                 var serviceConfigurator = (IServicesConfigurator)Activator.CreateInstance(type);
                 serviceConfigurator.ConfigureServices(services);
             }

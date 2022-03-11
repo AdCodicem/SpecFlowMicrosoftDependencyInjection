@@ -24,8 +24,8 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection
                 AppDomain
                     .CurrentDomain
                     .GetAssemblies()
-                    .SelectMany(assembly => assembly.GetTypes())
-                    .Where(a => System.Attribute.IsDefined(a, typeof(BindingAttribute)));
+                    .SelectMany(assembly => assembly.GetLoadableTypes())
+                    .Where(a => Attribute.IsDefined(a, typeof(BindingAttribute)));
             foreach (var bindingType in bindingTypes)
             {
                 services.AddScoped(bindingType);

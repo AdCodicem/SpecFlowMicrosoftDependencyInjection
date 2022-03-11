@@ -20,7 +20,7 @@ namespace AdCodicem.SpecFlow.MicrosoftDependencyInjection.Internal
             }
             catch (ReflectionTypeLoadException e)
             {
-                return e.Types.Where(t => t != null);
+                return e.Types.Where(t => t != null && !t.IsByRef);
             }
         }
     }

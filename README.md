@@ -1,3 +1,5 @@
+# This repo is not maintained anymore, please use [SpecFlow.DependencyInjection](https://github.com/solidtoken/SpecFlow.DependencyInjection)
+
 # AdCodicem.SpecFlow.MicrosoftDependencyInjection
 AdCodicem.SpecFlow.MicrosoftDependencyInjection is a [SpecFlow](https://specflow.org/getting-started/) plugin that enables to use [Microsoft.Extensions.DependencyInjection](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection) for resolving test dependencies.
 It's based on Gáspár Nagy's [SpecFlow.Autofac](https://github.com/gasparnagy/SpecFlow.Autofac) plugin.
